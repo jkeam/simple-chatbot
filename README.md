@@ -24,6 +24,11 @@ python ./app.py
 
 ### OpenShift
 
-1. Copy `.env.template` to `.env`
+1. Copy `.env.template` to `./openshift/.env`
 2. Update values in `.env`
-3. `oc apply -k ./openshift`
+3. Deploy
+
+    ```shell
+    oc new-project chatbot
+    oc apply -k ./openshift
+    ```
