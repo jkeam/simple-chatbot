@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: chatbot 
+  labels:
+    app: chatbot 
+spec:
+  path: /
+  to:
+    kind: Service
+    name: chatbot 
+    weight: 100
+  port:
+    targetPort: port8080
+  tls:
+    termination: edge

@@ -21,3 +21,9 @@ pip install -r ./requirements.txt
 ```shell
 python ./app.py
 ```
+
+### OpenShift
+
+1. Copy `.env.template` to `.env`
+2. Update values in `.env`
+3. `oc apply -k ./openshift`

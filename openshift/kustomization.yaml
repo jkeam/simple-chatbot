@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: chatbot
+
+images:
+- name: IMAGE
+  newName: quay.io/jkeam/simple-chatbot
+  digest: sha256:6ad8a45d9f183ae773230f84a792e073ea8ce9009ff88de0fca068e6affea559
+
+configMapGenerator:
+- name: app-config
+  envs:
+  - .env
+
+resources:
+- deployment.yaml
+- service.yaml
+- route.yaml

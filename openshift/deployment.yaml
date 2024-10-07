@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot
+  labels:
+    app: chatbot
+spec:
+  selector:
+    matchLabels:
+      app: chatbot
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: chatbot
+    spec:
+      containers:
+        - name: chatbot
+          image: IMAGE
+          envFrom:
+          - configMapRef:
+              name: app-config
+          ports:
+          - containerPort: 8080
+            name: theport
+      restartPolicy: Always
