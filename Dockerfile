@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/python-312:1-25.1726664318
+FROM registry.access.redhat.com/ubi9/python-312:1-1733164709
 
 # deps
 USER 1001
