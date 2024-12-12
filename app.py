@@ -10,6 +10,11 @@ parser.add_argument('--model-url',
                     required=False,
                     default=environ['MODEL_URL'],
                     help='Model URL')
+parser.add_argument('--system-prompt',
+                    type=str,
+                    required=False,
+                    default=environ['SYSTEM_PROMPT'],
+                    help='System Prompt')
 parser.add_argument('-m',
                     '--model',
                     type=str,
@@ -44,7 +49,7 @@ def predict(message, history):
     # Convert chat history to OpenAI format
     history_openai_format = [{
         "role": "system",
-        "content": "You are Granite Chat, an AI language model developed by IBM. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. You always respond to greetings (for example, hi, hello, g'day, morning, afternoon, evening, night, what's up, nice to meet you, sup) with \"Hello! I am Granite Chat, created by IBM. How can I help you today?\". Please do not say anything else and do not start a conversation." }]
+        "content": args.system_prompt }]
     for human, assistant in history:
         history_openai_format.append({"role": "user", "content": human})
         history_openai_format.append({
