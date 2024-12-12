@@ -19,7 +19,7 @@ parser.add_argument('-m',
                     '--model',
                     type=str,
                     required=False,
-                    default='granite',
+                    default=environ['MODEL_NAME'],
                     help='Model name for the chatbot')
 parser.add_argument('--temp',
                     type=float,
