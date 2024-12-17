@@ -1,6 +1,7 @@
 # Simple Chatbot
 
-This chatbot chats with a vLLM chatbot.  Running the actual chatbot is outside the scope of this readme for now.
+This chatbot chats with a vLLM chatbot.
+Running the actual chatbot is outside the scope of this readme for now.
 
 Taken from the [vllm docs](https://github.com/vllm-project/vllm/blob/main/examples/gradio_openai_chatbot_webserver.py).
 
@@ -31,4 +32,10 @@ python ./app.py
     ```shell
     oc new-project chatbot
     oc apply -k ./openshift
+    ROUTE="https://$(oc get routes chatbot -n chatbot -o jsonpath='{.spec.host}')"
+    oc patch consolelink chatbot --type='merge' -p '{"spec":{"href":"$ROUTE"}}'
     ```
+
+## Docs
+
+1. [Flaticon Icon](https://www.flaticon.com/free-icons/chatbot)
