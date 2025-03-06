@@ -25,8 +25,13 @@ python ./app.py
 
 ### OpenShift
 
-1. Copy `.env.template` to `./openshift/.env`
-2. Update values in `.env`
+1. Copy `./openshift/.env.template` to `./openshift/.env`
+2. Update values in `./openshift/.env`, something like:
+
+    ```env
+    MODEL_URL=https://llm-route-ic-shared-llm.apps.cluster-5crkf.5crkf.sandbox3281.opentlc.com/v1
+    ```
+
 3. Deploy
 
     ```shell
