@@ -1,0 +1,35 @@
+schemaVersion: 2.2.2
+metadata:
+  name: simple-chatbot
+components:
+  - name: python
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel9:3.21
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+      memoryLimit: '2Gi'
+      memoryRequest: '1Gi'
+      cpuLimit: '2'
+      cpuRequest: '1'
+      mountSources: true
+  - name: venv
+    volume:
+      size: 1G
+commands:
+  - id: dependencies
+    exec:
+      label: "Install dependencies"
+      component: python
+      workingDir: ${PROJECTS_ROOT}/simple-chatbot
+      commandLine: python -m venv .venv && . .venv/bin/activate && pip install -r ./requirements.txt
+      group:
+        kind: run
+  - id: run
+    exec:
+      label: "Run the application"
+      component: python
+      workingDir: ${PROJECTS_ROOT}/simple-chatbot
+      commandLine: ./run-local.sh
+      group:
+        kind: run

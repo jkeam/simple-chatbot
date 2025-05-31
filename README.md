@@ -21,6 +21,7 @@ pip install -r ./requirements.txt
 
 ```shell
 python ./app.py
+# or update vars and ./run-local.sh
 ```
 
 ### OpenShift
