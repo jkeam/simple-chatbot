@@ -1,7 +1,10 @@
+"""
+Simple Chatbot
+"""
+from os import environ
 from argparse import ArgumentParser
 from gradio import ChatInterface
 from openai import OpenAI
-from os import environ
 
 # Argument parser setup
 parser = ArgumentParser(description='Chatbot Interface with Customizable Parameters')
@@ -51,6 +54,9 @@ client = OpenAI(
 )
 
 def predict(message, history):
+    """
+    Predict method that runs all the logic
+    """
     # Convert chat history to OpenAI format
     history_openai_format = [{
         "role": "system",
@@ -64,20 +70,28 @@ def predict(message, history):
     history_openai_format.append({"role": "user", "content": message})
 
     # Create a chat completion request and send it to the API server
-    stream = client.chat.completions.create(
-        model=args.model,  # Model name to use
-        messages=history_openai_format,  # Chat history
-        temperature=args.temp,  # Temperature for text generation
-        stream=True,  # Stream response
-        extra_body={
-            'repetition_penalty':
-            1,
-            'stop_token_ids': [
-                int(id.strip()) for id in args.stop_token_ids.split(',')
-                if id.strip()
-            ] if args.stop_token_ids else []
-        })
-
+    if openai_api_base == "https://api.openai.com/v1":
+        stream = client.chat.completions.create(
+            model=args.model,  # Model name to use
+            messages=history_openai_format,  # Chat history
+            temperature=args.temp,  # Temperature for text generation
+            stream=True,  # Stream response
+        )
+    else:
+        stream = client.chat.completions.create(
+            model=args.model,  # Model name to use
+            messages=history_openai_format,  # Chat history
+            temperature=args.temp,  # Temperature for text generation
+            stream=True,  # Stream response
+            extra_body={
+                'repetition_penalty': 1,
+                'stop_token_ids': [
+                    int(id.strip()) for id in args.stop_token_ids.split(',')
+                    if id.strip()
+                ] if args.stop_token_ids else []
+            }
+        )
+    
     # Read and return generated text from response stream
     partial_message = ""
     for chunk in stream:
@@ -86,5 +100,5 @@ def predict(message, history):
 
 # Create and launch a chat interface with Gradio
 ChatInterface(predict).queue().launch(server_name=args.host,
-                                         server_port=args.port,
-                                         share=True)
+                                      server_port=args.port,
+                                      share=True)
