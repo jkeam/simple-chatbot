@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "App",
+        "type": "python",
+        "request": "launch",
+        "stopOnEntry": false,
+        "pythonPath": "${config:python.pythonPath}",
+        "program": "${workspaceFolder}/app.py",
+        "envFile": "${workspaceFolder}/.env",
+        "django": false,
+        "justMyCode": true,
+        "debugOptions": ["RedirectOutput"]
+      }
+    ]
+  }
