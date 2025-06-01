@@ -3,15 +3,13 @@
     "configurations": [
       {
         "name": "App",
-        "type": "python",
+        "type": "debugpy",
         "request": "launch",
         "stopOnEntry": false,
-        "pythonPath": "${config:python.pythonPath}",
         "program": "${workspaceFolder}/app.py",
         "envFile": "${workspaceFolder}/.env",
         "django": false,
-        "justMyCode": true,
-        "debugOptions": ["RedirectOutput"]
+        "justMyCode": true
       }
     ]
   }
