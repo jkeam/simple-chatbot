@@ -31,6 +31,7 @@ python ./app.py
 
     ```env
     MODEL_URL=https://llm-route-ic-shared-llm.apps.cluster-5crkf.5crkf.sandbox3281.opentlc.com/v1
+    # AUTH_TOKEN=some-token-if-necessary
     ```
 
 3. Deploy

@@ -20,7 +20,12 @@ parser.add_argument('-m',
                     type=str,
                     required=False,
                     default=environ['MODEL_NAME'],
-                    help='Model name for the chatbot')
+                    help='Model name for the llm')
+parser.add_argument('--auth-token',
+                    type=str,
+                    required=False,
+                    default=environ['AUTH_TOKEN'],
+                    help='Token for the llm')
 parser.add_argument('--temp',
                     type=float,
                     default=0.8,
@@ -36,7 +41,7 @@ parser.add_argument("--port", type=int, default='8080')
 args = parser.parse_args()
 
 # Set OpenAI's API key and API base to use vLLM's API server.
-openai_api_key = "EMPTY"
+openai_api_key = args.auth_token
 openai_api_base = args.model_url
 
 # Create an OpenAI client to interact with the API server

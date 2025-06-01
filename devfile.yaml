@@ -1,10 +1,26 @@
-schemaVersion: 2.2.2
+schemaVersion: 2.3.0
 metadata:
   name: simple-chatbot
+  version: 1.0.0
+  description: Simple chatbot.
+  projectType: Python
+  language: Python
+  tags: [ 'python', 'chatbot', 'llm', 'ai' ]
+  architecture: [ 'amd64' ]
+  displayName: Simple Chatbot
 components:
   - name: python
     container:
+      endpoints:
+        - name: http
+          targetPort: 8080
       image: registry.redhat.io/devspaces/udi-rhel9:3.21
+      env:
+        GRADIO_SERVER_NAME: '0.0.0.0'
+        MODEL_NAME: granite
+        MODEL_URL: https://somechatbot.com/v1
+        AUTH_TOKEN: 'EMPTY'
+        SYSTEM_PROMPT: "You are Granite Chat, an AI language model developed by IBM. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. You always respond to greetings (for example, hi, hello, g'day, morning, afternoon, evening, night, what's up, nice to meet you, sup) with \"Hello! I am Granite Chat, created by IBM. How can I help you today?\". Please do not say anything else and do not start a conversation."
       volumeMounts:
         - name: venv
           path: /home/user/.venv
@@ -17,19 +33,21 @@ components:
     volume:
       size: 1G
 commands:
-  - id: dependencies
+  - id: install
     exec:
       label: "Install dependencies"
-      component: python
-      workingDir: ${PROJECTS_ROOT}/simple-chatbot
+      component: web
+      workingDir: ${PROJECT_SOURCE}
       commandLine: python -m venv .venv && . .venv/bin/activate && pip install -r ./requirements.txt
       group:
-        kind: run
+        kind: build
+        isDefault: true
   - id: run
     exec:
       label: "Run the application"
-      component: python
-      workingDir: ${PROJECTS_ROOT}/simple-chatbot
+      component: web
+      workingDir: ${PROJECT_SOURCE}
       commandLine: ./run-local.sh
       group:
         kind: run
+        isDefault: true
