@@ -43,7 +43,7 @@ uv sync
     oc new-project chatbot
     oc apply -k ./openshift
     ROUTE="https://$(oc get routes chatbot -n chatbot -o jsonpath='{.spec.host}')"
-    oc patch consolelink chatbot --type='merge' -p '{"spec":{"href":"$ROUTE"}}'
+    oc patch consolelink chatbot --type='merge' -p "{\"spec\":{\"href\":\"$ROUTE\"}}"
     ```
 
 ## Docs
