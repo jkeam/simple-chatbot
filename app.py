@@ -37,8 +37,6 @@ parser.add_argument('--stop-token-ids',
                     type=str,
                     default='',
                     help='Comma-separated stop token IDs')
-parser.add_argument("--host", type=str, default='0.0.0.0')
-parser.add_argument("--port", type=int, default='8080')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -99,6 +97,4 @@ def predict(message, history):
         yield partial_message
 
 # Create and launch a chat interface with Gradio
-ChatInterface(fn=predict, type="messages").queue().launch(server_name=args.host,
-                                      server_port=args.port,
-                                      share=True)
+ChatInterface(fn=predict, type="messages").queue().launch(share=True)
