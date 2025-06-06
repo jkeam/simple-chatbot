@@ -99,6 +99,6 @@ def predict(message, history):
         yield partial_message
 
 # Create and launch a chat interface with Gradio
-ChatInterface(predict).queue().launch(server_name=args.host,
+ChatInterface(fn=predict, type="messages").queue().launch(server_name=args.host,
                                       server_port=args.port,
                                       share=True)

@@ -12,16 +12,15 @@ Taken from the [vllm docs](https://github.com/vllm-project/vllm/blob/main/exampl
 #### Setup
 
 ```shell
-python3.12 -m venv venv
-source ./venv/bin/activate
-pip install -r ./requirements.txt
+# make sure you have uv installed
+uv sync
 ```
 
 #### Run
 
 ```shell
-python ./app.py
-# or update vars and ./run-local.sh
+# update env vars in run-local.sh
+./run-local.sh
 ```
 
 ### OpenShift
