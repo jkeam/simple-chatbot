@@ -5,6 +5,10 @@ Running the actual chatbot is outside the scope of this readme for now.
 
 Taken from the [vllm docs](https://github.com/vllm-project/vllm/blob/main/examples/gradio_openai_chatbot_webserver.py).
 
+## Building
+
+There are two `Dockerfile`s, one that does a multistage build in order to eliminate `uv` and the other that uses `uv` but then just uninstalls it when building. Really is no harm in leaving `uv`, but just removing anything I don't need from the final image.
+
 ## Running
 
 ### Locally

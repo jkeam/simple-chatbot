@@ -1,22 +1,21 @@
+# Build: only to generate requirements.txt
 FROM registry.access.redhat.com/ubi9/python-312:1-1749108609 as build
-# build requirements.txt
 USER 0
 COPY pyproject.toml uv.lock .
-# generate requirements.txt
 RUN pip install -U pip && pip install uv
-RUN uv sync && uv pip freeze > ./requirements.txt
-RUN pip uninstall uv -y
+RUN uv sync && uv pip freeze > requirements.txt
 
+# Final: uses requirements.txt
+FROM registry.access.redhat.com/ubi9/python-312:1-1749108609 as final
 # install deps
 USER 1001
-RUN pip install -U pip && pip install -r ./requirements.txt
-
+COPY --from=build /opt/app-root/src/requirements.txt .
+RUN pip install -U pip && pip install -r requirements.txt
 # source code
 USER 0
 COPY app.py .
 RUN chown -R 1001:0 ./
 USER 1001
-
 # env vars
 # need to pass in MODEL_URL during runtime
 EXPOSE 8080
