@@ -5,7 +5,7 @@ namespace: chatbot
 images:
 - name: IMAGE
   newName: quay.io/jkeam/simple-chatbot
-  digest: sha256:256762750a035d9ac0e03de7db27cd147333e92151fa4ce89fa9139e6f1e6f8f
+  digest: sha256:689da3594a663d5f3df431411139dbc86d1bc92b4f6154fd7f8b0a38b0a12c3b
 
 configMapGenerator:
 - name: app-config
