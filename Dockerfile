@@ -10,6 +10,7 @@ RUN pip uninstall uv -y
 # install deps
 USER 1001
 RUN pip install -U pip && pip install -r ./requirements.txt
+RUN curl -k -o /opt/app-root/src/.cache/huggingface/gradio/frpc/frpc_linux_amd64_v0.3 https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64
 
 # source code
 USER 0
