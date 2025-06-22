@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/python-312:1-1749108609 as build
+FROM registry.access.redhat.com/ubi9/python-312:9.6-1749631862
 # build requirements.txt
 USER 0
 COPY pyproject.toml uv.lock .
@@ -10,10 +10,6 @@ RUN pip uninstall uv -y
 # install deps
 USER 1001
 RUN pip install -U pip && pip install -r ./requirements.txt
-RUN mkdir -p /opt/app-root/src/.cache/huggingface/gradio/frpc
-RUN curl -k -o /opt/app-root/src/.cache/huggingface/gradio/frpc/frpc_linux_amd64_v0.3 https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64
-COPY ./lib/_cli.py /opt/app-root/lib/python3.12/site-packages/openai/cli
-COPY ./lib/_cli.py /opt/app-root/lib64/python3.12/site-packages/openai/cli
 
 # source code
 USER 0
