@@ -59,12 +59,8 @@ def predict(message, history):
     history_openai_format = [{
         "role": "system",
         "content": args.system_prompt }]
-    for human, assistant in history:
-        history_openai_format.append({"role": "user", "content": human})
-        history_openai_format.append({
-            "role": "assistant",
-            "content": assistant
-        })
+    for item in history:
+        history_openai_format.append(item)
     history_openai_format.append({"role": "user", "content": message})
 
     # Create a chat completion request and send it to the API server
@@ -89,7 +85,7 @@ def predict(message, history):
                 ] if args.stop_token_ids else []
             }
         )
-    
+
     # Read and return generated text from response stream
     partial_message = ""
     for chunk in stream:
