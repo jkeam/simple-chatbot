@@ -56,25 +56,22 @@ def predict(message, history):
     Predict method that runs all the logic
     """
     # Convert chat history to OpenAI format
-    history_openai_format = [{
-        "role": "system",
-        "content": args.system_prompt }]
-    for item in history:
-        history_openai_format.append(item)
-    history_openai_format.append({"role": "user", "content": message})
+    if len(history) == 0:
+        history.append({"role": "system", "content": args.system_prompt})
+    history.append({"role": "user", "content": message})
 
     # Create a chat completion request and send it to the API server
     if openai_api_base == "https://api.openai.com/v1":
         stream = client.chat.completions.create(
             model=args.model,  # Model name to use
-            messages=history_openai_format,  # Chat history
+            messages=history,  # Chat history
             temperature=args.temp,  # Temperature for text generation
             stream=True,  # Stream response
         )
     else:
         stream = client.chat.completions.create(
             model=args.model,  # Model name to use
-            messages=history_openai_format,  # Chat history
+            messages=history,  # Chat history
             temperature=args.temp,  # Temperature for text generation
             stream=True,  # Stream response
             extra_body={
