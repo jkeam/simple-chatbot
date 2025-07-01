@@ -24,4 +24,10 @@ spec:
           ports:
           - containerPort: 8080
             name: theport
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+              - ALL
       restartPolicy: Always
