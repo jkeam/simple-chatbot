@@ -17,14 +17,25 @@ There are two `Dockerfile`s, one that does a multistage build in order to elimin
 
 ```shell
 # make sure you have uv installed
+uv python pin 3.12
 uv sync
 ```
 
 #### Run
 
+Use local script:
+
 ```shell
 # update env vars in run-local.sh
 ./run-local.sh
+```
+
+Or use `uv`:
+
+```shell
+cp ./openshift/.env.template to ./openshift/.env
+# update ./openshift/.env
+uv run --env-file ./openshift/.env ./app.py
 ```
 
 ### OpenShift

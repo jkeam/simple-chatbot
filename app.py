@@ -1,7 +1,7 @@
 """
 Simple Chatbot
 """
-from os import environ
+from os import environ, getenv
 from argparse import ArgumentParser
 from gradio import ChatInterface
 from openai import OpenAI
@@ -37,6 +37,16 @@ parser.add_argument('--stop-token-ids',
                     type=str,
                     default='',
                     help='Comma-separated stop token IDs')
+parser.add_argument('--app-name',
+                    type=str,
+                    required=False,
+                    default=getenv('APP_NAME', ''),
+                    help='Name of the app')
+parser.add_argument('--app-description',
+                    type=str,
+                    required=False,
+                    default=getenv('APP_DESCRIPTION', ''),
+                    help='Description of the app')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -90,4 +100,4 @@ def predict(message, history):
         yield partial_message
 
 # Create and launch a chat interface with Gradio
-ChatInterface(fn=predict, type="messages").queue().launch(share=True, ssl_verify=False)
+ChatInterface(fn=predict, type="messages", title=args.app_name, description=args.app_description).queue().launch(share=True, ssl_verify=False)
