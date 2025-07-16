@@ -6,6 +6,7 @@
         "ms-python.pylint",
         "redhat.fabric8-analytics",
         "redhat.vscode-yaml",
-        "pr1sm8.theme-panda"
+        "pr1sm8.theme-panda",
+        "vscodevim.vim"
     ]
 }
