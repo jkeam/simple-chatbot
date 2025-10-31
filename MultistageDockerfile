@@ -1,12 +1,12 @@
 # Build: only to generate requirements.txt
-FROM registry.access.redhat.com/ubi9/python-312:9.6-1749631862 as build
+FROM registry.access.redhat.com/ubi9/python-312:9.6-1760372467 as build
 USER 0
 COPY pyproject.toml uv.lock .
 RUN pip install -U pip && pip install uv
 RUN uv sync && uv pip freeze > requirements.txt
 
 # Final: uses requirements.txt
-FROM registry.access.redhat.com/ubi9/python-312:9.6-1749631862 as final
+FROM registry.access.redhat.com/ubi9/python-312-minimal:9.6-1760522101 as final
 
 # install deps
 USER 1001

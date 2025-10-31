@@ -7,7 +7,10 @@ Taken from the [vllm docs](https://github.com/vllm-project/vllm/blob/main/exampl
 
 ## Building
 
-There are two `Dockerfile`s, one that does a multistage build in order to eliminate `uv` and the other that uses `uv` but then just uninstalls it when building. Really is no harm in leaving `uv`, but just removing anything I don't need from the final image.
+There are two `Dockerfile`s, one that does a multistage build in order to
+eliminate `uv` and the other that uses `uv` but then just uninstalls it when
+building. Really is no harm in leaving `uv`, but just removing anything I do not
+need from the final image.
 
 ## Running
 
